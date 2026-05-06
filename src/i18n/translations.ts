@@ -16,6 +16,8 @@ export interface UiStrings {
   themeDark: string
   fontSize: string
   gen: string
+  favorites: string
+  total: string
 }
 
 export const TRANSLATIONS: Record<Language, UiStrings> = {
@@ -35,6 +37,8 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     themeDark:         'Dark',
     fontSize:          'Font Size',
     gen:               'Gen',
+    favorites:         'Favorites',
+    total:             'Total',
   },
   zh: {
     title:             '宝可梦图鉴',
@@ -52,6 +56,8 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     themeDark:         '暗色',
     fontSize:          '字体大小',
     gen:               '世代',
+    favorites:         '收藏夹',
+    total:             '种族值',
   },
   ja: {
     title:             'ポケモン図鑑',
@@ -69,5 +75,7 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     themeDark:         'ダーク',
     fontSize:          '文字サイズ',
     gen:               '世代',
+    favorites:         'お気に入り',
+    total:             '種族値',
   },
 }

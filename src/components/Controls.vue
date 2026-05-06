@@ -3,11 +3,20 @@
     <div class="controls-row">
       <SearchBar v-model="searchVal" :placeholder="ui.searchPlaceholder" />
 
+      <button
+        class="ctrl-btn fav-filter-btn"
+        :class="{ active: showFavs }"
+        @click="setShowFavs(!showFavs)"
+      >
+        {{ showFavs ? '♥' : '♡' }} {{ ui.favorites }}
+        <span v-if="favCount > 0" class="fav-count">{{ favCount }}</span>
+      </button>
+
       <button class="ctrl-btn lang-btn" @click="cycleLanguage()">
         {{ langLabel }}
       </button>
 
-      <button class="ctrl-btn theme-btn" @click="toggleTheme()" :title="ui.themeLight + ' / ' + ui.themeDark">
+      <button class="ctrl-btn theme-btn" @click="toggleTheme()">
         <span v-if="theme === 'dark'">☀</span>
         <span v-else>☾</span>
       </button>
@@ -39,24 +48,29 @@ import {
   SEARCH_KEY, ACTIVE_TYPE_KEY,
   TOGGLE_THEME_KEY, CYCLE_LANG_KEY,
   SET_ACTIVE_TYPE_KEY, SET_SEARCH_KEY, SET_FONTSIZE_KEY,
+  FAVORITES_KEY, SHOW_FAVS_KEY, SET_SHOW_FAVS_KEY,
 } from '../types'
 import { TRANSLATIONS } from '../i18n/translations'
 import { useFontSize } from '../composables/useFontSize'
 
-const lang         = inject(LANG_KEY)!
-const theme        = inject(THEME_KEY)!
-const fontSize     = inject(FONTSIZE_KEY)!
-const search       = inject(SEARCH_KEY)!
-const activeType   = inject(ACTIVE_TYPE_KEY)!
-const toggleTheme  = inject(TOGGLE_THEME_KEY)!
+const lang          = inject(LANG_KEY)!
+const theme         = inject(THEME_KEY)!
+const fontSize      = inject(FONTSIZE_KEY)!
+const search        = inject(SEARCH_KEY)!
+const activeType    = inject(ACTIVE_TYPE_KEY)!
+const toggleTheme   = inject(TOGGLE_THEME_KEY)!
 const cycleLanguage = inject(CYCLE_LANG_KEY)!
 const setActiveType = inject(SET_ACTIVE_TYPE_KEY)!
-const setSearch    = inject(SET_SEARCH_KEY)!
-const setFontSize  = inject(SET_FONTSIZE_KEY)!
+const setSearch     = inject(SET_SEARCH_KEY)!
+const setFontSize   = inject(SET_FONTSIZE_KEY)!
+const favorites     = inject(FAVORITES_KEY)!
+const showFavs      = inject(SHOW_FAVS_KEY)!
+const setShowFavs   = inject(SET_SHOW_FAVS_KEY)!
 
 const { MIN, MAX } = useFontSize()
 
 const ui = computed(() => TRANSLATIONS[lang.value])
+const favCount = computed(() => favorites.value.size)
 
 const langLabel = computed(() => {
   if (lang.value === 'zh') return '中文'
@@ -100,8 +114,21 @@ const activeTypeVal = computed({
   font-weight: 600;
   transition: background 0.12s, border-color 0.12s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 .ctrl-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.ctrl-btn.active { background: #fbbf2422; border-color: #fbbf24; color: #fbbf24; }
+
+.fav-count {
+  background: #fbbf24;
+  color: #000;
+  font-size: 10px;
+  padding: 0 5px;
+  border-radius: 8px;
+  font-weight: 700;
+}
 
 .font-ctrl {
   display: flex;

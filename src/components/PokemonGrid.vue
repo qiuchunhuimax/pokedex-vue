@@ -1,39 +1,25 @@
 <template>
-  <div class="grid-outer">
-    <!-- Generation side labels -->
-    <div class="gen-sidebar">
-      <div
-        v-for="g in ([1,2,3] as const)"
-        :key="g"
-        class="gen-label"
-        :style="{ flex: genRows[g] }"
-      >
-        <span>{{ ui.gen }}&nbsp;{{ g }}</span>
+  <div class="grid-root">
+    <template v-for="gen in ([1, 2, 3] as const)" :key="gen">
+      <!-- 世代分隔标题 -->
+      <div class="gen-header">
+        <span class="gen-title">{{ ui.gen }} {{ gen }}</span>
+        <span class="gen-count">{{ genPokemon(gen).length }} {{ genCountLabel }}</span>
+        <div class="gen-line" />
       </div>
-    </div>
 
-    <!-- Main grid -->
-    <div class="grid-scroll">
+      <!-- 6 列宝可梦网格 -->
       <div class="pokemon-grid">
-        <template v-for="row in ROWS" :key="row">
-          <template v-for="col in COLS" :key="`${row}-${col}`">
-            <PokemonCell
-              v-if="cellMap.get(`${row}-${col}`)"
-              :pokemon="cellMap.get(`${row}-${col}`)!"
-              :faded="!visibleIds.has(cellMap.get(`${row}-${col}`)!.id)"
-              :selected="selected?.id === cellMap.get(`${row}-${col}`)!.id"
-              :style="{ gridRow: row, gridColumn: col }"
-              @click="setSelected(cellMap.get(`${row}-${col}`) ?? null)"
-            />
-            <div
-              v-else
-              class="grid-empty"
-              :style="{ gridRow: row, gridColumn: col }"
-            />
-          </template>
-        </template>
+        <PokemonCell
+          v-for="p in genPokemon(gen)"
+          :key="p.id"
+          :pokemon="p"
+          :faded="!visibleIds.has(p.id)"
+          :selected="false"
+          @click="openModal(p)"
+        />
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -41,77 +27,66 @@
 import { computed, inject } from 'vue'
 import PokemonCell from './PokemonCell.vue'
 import { POKEMON } from '../data/pokemon'
-import { VISIBLE_IDS_KEY, SELECTED_KEY, SET_SELECTED_KEY, LANG_KEY } from '../types'
+import { VISIBLE_IDS_KEY, LANG_KEY, OPEN_MODAL_KEY } from '../types'
 import { TRANSLATIONS } from '../i18n/translations'
 
-const ROWS = 22
-const COLS = 18
-
-const visibleIds  = inject(VISIBLE_IDS_KEY)!
-const selected    = inject(SELECTED_KEY)!
-const setSelected = inject(SET_SELECTED_KEY)!
-const lang        = inject(LANG_KEY)!
+const visibleIds = inject(VISIBLE_IDS_KEY)!
+const lang       = inject(LANG_KEY)!
+const openModal  = inject(OPEN_MODAL_KEY)!
 
 const ui = computed(() => TRANSLATIONS[lang.value])
 
-const cellMap = computed(() => {
-  const m = new Map<string, typeof POKEMON[number]>()
-  for (const p of POKEMON) m.set(`${p.row}-${p.col}`, p)
-  return m
+const genCountLabel = computed(() => {
+  if (lang.value === 'zh') return '只'
+  if (lang.value === 'ja') return '匹'
+  return 'Pokémon'
 })
 
-// flex weights = number of grid rows per generation
-const genRows: Record<1|2|3, number> = { 1: 9, 2: 6, 3: 8 }
+function genPokemon(gen: 1 | 2 | 3) {
+  return POKEMON.filter(p => p.generation === gen)
+}
 </script>
 
 <style scoped>
-.grid-outer {
-  display: flex;
-  gap: 6px;
+.grid-root {
   width: 100%;
 }
 
-/* Sidebar */
-.gen-sidebar {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  width: 22px;
-}
-.gen-label {
+/* 世代标题 */
+.gen-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-right: 2px solid var(--border-strong);
-  padding-right: 4px;
+  gap: 10px;
+  margin: 24px 0 12px;
 }
-.gen-label span {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-size: var(--fs-control);
-  font-weight: 600;
+.gen-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--txt);
+  white-space: nowrap;
+}
+.gen-count {
+  font-size: 12px;
   color: var(--txt2);
   white-space: nowrap;
-  letter-spacing: 0.06em;
+}
+.gen-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
 }
 
-/* Grid */
-.grid-scroll {
-  flex: 1;
-  overflow-x: auto;
-}
+/* 6 列网格 */
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(18, minmax(58px, 1fr));
-  grid-template-rows: repeat(22, auto);
-  gap: 3px;
-  min-width: 1080px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
 }
 
-.grid-empty {
-  min-height: 72px;
-  border-radius: 6px;
-  background: var(--bg3);
-  opacity: 0.25;
+@media (max-width: 900px) {
+  .pokemon-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 600px) {
+  .pokemon-grid { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
