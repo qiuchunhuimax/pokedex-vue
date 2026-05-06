@@ -45,6 +45,7 @@ import {
   SET_ACTIVE_TYPE_KEY, SET_SEARCH_KEY, SET_FONTSIZE_KEY,
   FAVORITES_KEY, TOGGLE_FAV_KEY, SHOW_FAVS_KEY, SET_SHOW_FAVS_KEY,
   COMPARE_LIST_KEY, TOGGLE_COMPARE_KEY, CLEAR_COMPARE_KEY,
+  SHOW_COMPARE_KEY, SET_SHOW_COMPARE_KEY,
   MODAL_KEY, OPEN_MODAL_KEY, CLOSE_MODAL_KEY,
 } from './types'
 import type { Pokemon, PokemonType } from './types'
@@ -58,7 +59,8 @@ const { favorites, toggleFav }  = useFavorites()
 // ── local state ───────────────────────────────────────────────────────────
 const search      = ref('')
 const activeType  = ref<PokemonType | null>(null)
-const showFavs    = ref(false)
+const showFavs     = ref(false)
+const showCompare  = ref(false)
 const modalPokemon = ref<Pokemon | null>(null)
 const compareList  = ref<Pokemon[]>([])
 
@@ -96,6 +98,7 @@ function toggleCompare(p: Pokemon) {
 
 function clearCompare() {
   compareList.value = []
+  showCompare.value = false
 }
 
 // ── modal helpers ─────────────────────────────────────────────────────────
@@ -125,9 +128,11 @@ provide(TOGGLE_FAV_KEY,    toggleFav)
 provide(SHOW_FAVS_KEY,     showFavs)
 provide(SET_SHOW_FAVS_KEY, (v: boolean) => { showFavs.value = v })
 
-provide(COMPARE_LIST_KEY,   compareList)
-provide(TOGGLE_COMPARE_KEY, toggleCompare)
-provide(CLEAR_COMPARE_KEY,  clearCompare)
+provide(COMPARE_LIST_KEY,    compareList)
+provide(TOGGLE_COMPARE_KEY,  toggleCompare)
+provide(CLEAR_COMPARE_KEY,   clearCompare)
+provide(SHOW_COMPARE_KEY,    showCompare)
+provide(SET_SHOW_COMPARE_KEY, (v: boolean) => { showCompare.value = v })
 
 provide(MODAL_KEY,       modalPokemon)
 provide(OPEN_MODAL_KEY,  openModal)

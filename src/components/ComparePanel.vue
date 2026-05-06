@@ -1,13 +1,13 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="compareList.length > 0" class="cmp-overlay" @click.self="clearCompare()">
+      <div v-if="showCompare" class="cmp-overlay" @click.self="closePanel()">
         <div class="cmp-modal">
 
           <!-- 标题栏 -->
           <div class="cmp-header">
             <span class="cmp-title">{{ title }}</span>
-            <button class="cmp-close" @click="clearCompare()">✕</button>
+            <button class="cmp-close" @click="closePanel()">✕</button>
           </div>
 
           <!-- 卡片区域：始终两列，空位用占位卡 -->
@@ -94,15 +94,23 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue'
-import { LANG_KEY, COMPARE_LIST_KEY, TOGGLE_COMPARE_KEY, CLEAR_COMPARE_KEY } from '../types'
+import {
+  LANG_KEY, COMPARE_LIST_KEY, TOGGLE_COMPARE_KEY,
+  SHOW_COMPARE_KEY, SET_SHOW_COMPARE_KEY,
+} from '../types'
 import type { Pokemon } from '../types'
 import { TYPE_COLORS, TYPE_LABELS } from '../data/pokemonTypes'
 import { getStats, statPercent, statColor, STAT_NAMES } from '../data/pokemonStats'
 
-const lang          = inject(LANG_KEY)!
-const compareList   = inject(COMPARE_LIST_KEY)!
-const toggleCompare = inject(TOGGLE_COMPARE_KEY)!
-const clearCompare  = inject(CLEAR_COMPARE_KEY)!
+const lang           = inject(LANG_KEY)!
+const compareList    = inject(COMPARE_LIST_KEY)!
+const toggleCompare  = inject(TOGGLE_COMPARE_KEY)!
+const showCompare    = inject(SHOW_COMPARE_KEY)!
+const setShowCompare = inject(SET_SHOW_COMPARE_KEY)!
+
+function closePanel() {
+  setShowCompare(false)
+}
 
 function getName(p: Pokemon) {
   if (lang.value === 'zh') return p.nameZh

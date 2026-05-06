@@ -18,6 +18,8 @@ export interface UiStrings {
   gen: string
   favorites: string
   total: string
+  compare: string
+  compareHint: string
 }
 
 export const TRANSLATIONS: Record<Language, UiStrings> = {
@@ -39,6 +41,8 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     gen:               'Gen',
     favorites:         'Favorites',
     total:             'Total',
+    compare:           'Compare',
+    compareHint:       'Click ⚖ on cards, then open here',
   },
   zh: {
     title:             '宝可梦图鉴',
@@ -58,6 +62,8 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     gen:               '世代',
     favorites:         '收藏夹',
     total:             '种族值',
+    compare:           '对比',
+    compareHint:       '点击卡片 ⚖ 选择，再点这里查看对比',
   },
   ja: {
     title:             'ポケモン図鑑',
@@ -77,5 +83,7 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
     gen:               '世代',
     favorites:         'お気に入り',
     total:             '種族値',
+    compare:           '比較',
+    compareHint:       'カードの ⚖ を選んでここをクリック',
   },
 }

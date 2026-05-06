@@ -40,9 +40,11 @@ export const SHOW_FAVS_KEY:      InjectionKey<Ref<boolean>>                     
 export const SET_SHOW_FAVS_KEY:  InjectionKey<(v: boolean) => void>              = Symbol('setShowFavs')
 
 // ── Compare ───────────────────────────────────────────────────────────────
-export const COMPARE_LIST_KEY:   InjectionKey<Ref<Pokemon[]>>                    = Symbol('compareList')
-export const TOGGLE_COMPARE_KEY: InjectionKey<(p: Pokemon) => void>              = Symbol('toggleCompare')
-export const CLEAR_COMPARE_KEY:  InjectionKey<() => void>                        = Symbol('clearCompare')
+export const COMPARE_LIST_KEY:    InjectionKey<Ref<Pokemon[]>>                   = Symbol('compareList')
+export const TOGGLE_COMPARE_KEY:  InjectionKey<(p: Pokemon) => void>             = Symbol('toggleCompare')
+export const CLEAR_COMPARE_KEY:   InjectionKey<() => void>                       = Symbol('clearCompare')
+export const SHOW_COMPARE_KEY:    InjectionKey<Ref<boolean>>                     = Symbol('showCompare')
+export const SET_SHOW_COMPARE_KEY:InjectionKey<(v: boolean) => void>             = Symbol('setShowCompare')
 
 // ── Modal ─────────────────────────────────────────────────────────────────
 export const MODAL_KEY:          InjectionKey<Ref<Pokemon | null>>               = Symbol('modal')

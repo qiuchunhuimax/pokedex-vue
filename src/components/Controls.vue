@@ -12,6 +12,16 @@
         <span v-if="favCount > 0" class="fav-count">{{ favCount }}</span>
       </button>
 
+      <button
+        class="ctrl-btn cmp-open-btn"
+        :class="{ active: showCompare, 'has-selected': compareList.length > 0 }"
+        @click="setShowCompare(true)"
+        :title="ui.compareHint"
+      >
+        ⚖ {{ ui.compare }}
+        <span v-if="compareList.length > 0" class="cmp-count">{{ compareList.length }}/2</span>
+      </button>
+
       <button class="ctrl-btn lang-btn" @click="cycleLanguage()">
         {{ langLabel }}
       </button>
@@ -49,6 +59,7 @@ import {
   TOGGLE_THEME_KEY, CYCLE_LANG_KEY,
   SET_ACTIVE_TYPE_KEY, SET_SEARCH_KEY, SET_FONTSIZE_KEY,
   FAVORITES_KEY, SHOW_FAVS_KEY, SET_SHOW_FAVS_KEY,
+  COMPARE_LIST_KEY, SHOW_COMPARE_KEY, SET_SHOW_COMPARE_KEY,
 } from '../types'
 import { TRANSLATIONS } from '../i18n/translations'
 import { useFontSize } from '../composables/useFontSize'
@@ -63,9 +74,12 @@ const cycleLanguage = inject(CYCLE_LANG_KEY)!
 const setActiveType = inject(SET_ACTIVE_TYPE_KEY)!
 const setSearch     = inject(SET_SEARCH_KEY)!
 const setFontSize   = inject(SET_FONTSIZE_KEY)!
-const favorites     = inject(FAVORITES_KEY)!
-const showFavs      = inject(SHOW_FAVS_KEY)!
-const setShowFavs   = inject(SET_SHOW_FAVS_KEY)!
+const favorites      = inject(FAVORITES_KEY)!
+const showFavs       = inject(SHOW_FAVS_KEY)!
+const setShowFavs    = inject(SET_SHOW_FAVS_KEY)!
+const compareList    = inject(COMPARE_LIST_KEY)!
+const showCompare    = inject(SHOW_COMPARE_KEY)!
+const setShowCompare = inject(SET_SHOW_COMPARE_KEY)!
 
 const { MIN, MAX } = useFontSize()
 
@@ -123,6 +137,17 @@ const activeTypeVal = computed({
 
 .fav-count {
   background: #fbbf24;
+  color: #000;
+  font-size: 10px;
+  padding: 0 5px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.cmp-open-btn.has-selected { border-color: #60a5fa; color: #60a5fa; }
+.cmp-open-btn.active        { background: #60a5fa22; border-color: #60a5fa; color: #60a5fa; }
+.cmp-count {
+  background: #60a5fa;
   color: #000;
   font-size: 10px;
   padding: 0 5px;
