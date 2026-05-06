@@ -6,17 +6,18 @@ const MAX = 24
 const BASE_REF = 16
 
 const FS_BASES: Record<string, number> = {
-  '--fs-body':         16,
-  '--fs-title':        28,
-  '--fs-subtitle':     13,
-  '--fs-control':      12,
-  '--fs-input':        14,
-  '--fs-cell-num':      9,
-  '--fs-cell-name':     8,
-  '--fs-type-badge':    7,
-  '--fs-detail-title': 22,
-  '--fs-detail-body':  14,
-  '--fs-detail-label': 11,
+  '--fs-body':         17,
+  '--fs-title':        30,
+  '--fs-subtitle':     14,
+  '--fs-control':      15,
+  '--fs-input':        16,
+  '--fs-cell-num':     14,
+  '--fs-cell-name':    14,
+  '--fs-type-badge':   12,
+  '--fs-detail-title': 24,
+  '--fs-detail-body':  16,
+  '--fs-detail-label': 13,
+  '--sprite-size':     96,
 }
 
 export function useFontSize() {

@@ -56,37 +56,42 @@ function genPokemon(gen: 1 | 2 | 3) {
 .gen-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 24px 0 12px;
+  gap: 12px;
+  margin: 30px 0 16px;
 }
 .gen-title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: var(--fs-control);
+  font-weight: 800;
   color: var(--txt);
   white-space: nowrap;
+  letter-spacing: 0.04em;
 }
 .gen-count {
-  font-size: 12px;
+  font-size: var(--fs-control);
   color: var(--txt2);
   white-space: nowrap;
 }
 .gen-line {
   flex: 1;
-  height: 1px;
+  height: 2px;
   background: var(--border-strong);
+  border-radius: 1px;
 }
 
 /* 6 列网格 */
 .pokemon-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  gap: 14px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .pokemon-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 800px) {
   .pokemon-grid { grid-template-columns: repeat(4, 1fr); }
 }
-@media (max-width: 600px) {
+@media (max-width: 550px) {
   .pokemon-grid { grid-template-columns: repeat(3, 1fr); }
 }
 </style>

@@ -39,12 +39,12 @@ function chipStyle(t: PokemonType) {
 .type-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  padding: 8px 0 4px;
+  gap: 6px;
+  padding: 10px 0 6px;
 }
 .type-chip {
   font-size: var(--fs-control);
-  padding: 3px 9px;
+  padding: 6px 14px;
   border-radius: 20px;
   color: var(--txt2);
   background: var(--bg3);

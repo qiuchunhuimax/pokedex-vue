@@ -97,8 +97,8 @@ function onImgError(e: Event) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 8px 8px;
-  border-radius: 12px;
+  padding: 14px 10px 12px;
+  border-radius: 14px;
   cursor: pointer;
   position: relative;
   background: var(--cell-color, #888);
@@ -115,8 +115,8 @@ function onImgError(e: Event) {
 /* 收藏 */
 .fav-btn {
   position: absolute;
-  top: 6px; right: 7px;
-  font-size: 14px;
+  top: 8px; right: 9px;
+  font-size: calc(var(--fs-cell-name) * 1.15);
   line-height: 1;
   color: rgba(255,255,255,0.6);
   padding: 0;
@@ -131,69 +131,70 @@ function onImgError(e: Event) {
 
 /* 编号 */
 .cell-num {
-  font-size: 10px;
-  color: rgba(255,255,255,0.75);
+  font-size: var(--fs-cell-num);
+  color: rgba(255,255,255,0.85);
   font-family: var(--font-mono);
+  font-weight: 700;
   line-height: 1;
   align-self: flex-start;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 /* 精灵图 */
 .cell-img-wrap {
-  width: 88px;
-  height: 88px;
+  width: var(--sprite-size, 96px);
+  height: var(--sprite-size, 96px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 .cell-img {
-  width: 88px;
-  height: 88px;
+  width: var(--sprite-size, 96px);
+  height: var(--sprite-size, 96px);
   object-fit: contain;
   image-rendering: pixelated;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.3));
 }
 
 /* 名称 */
 .cell-name {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--fs-cell-name);
+  font-weight: 700;
   color: #fff;
   width: 100%;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 5px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  margin-top: 7px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.35);
 }
 
 /* 属性 */
 .cell-types {
   display: flex;
-  gap: 4px;
+  gap: 5px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: 7px;
 }
 .type-badge {
-  font-size: 9px;
+  font-size: var(--fs-type-badge);
   color: #fff;
-  padding: 2px 6px;
-  border-radius: 10px;
+  padding: 3px 9px;
+  border-radius: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 /* 对比 */
 .cmp-btn {
   position: absolute;
-  bottom: 6px; right: 7px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
+  bottom: 8px; right: 9px;
+  font-size: calc(var(--fs-type-badge) * 1.1);
+  color: rgba(255,255,255,0.55);
   padding: 0;
   background: none;
   border: none;

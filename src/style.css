@@ -21,17 +21,18 @@
   --font-body: 'Inter', 'Noto Sans JP', system-ui, sans-serif;
   --font-mono: 'Space Mono', monospace;
 
-  --fs-body:         16px;
-  --fs-title:        28px;
-  --fs-subtitle:     13px;
-  --fs-control:      12px;
-  --fs-input:        14px;
-  --fs-cell-num:      9px;
-  --fs-cell-name:     8px;
-  --fs-type-badge:    7px;
-  --fs-detail-title: 22px;
-  --fs-detail-body:  14px;
-  --fs-detail-label: 11px;
+  --fs-body:         17px;
+  --fs-title:        30px;
+  --fs-subtitle:     14px;
+  --fs-control:      15px;
+  --fs-input:        16px;
+  --fs-cell-num:     14px;
+  --fs-cell-name:    14px;
+  --fs-type-badge:   12px;
+  --fs-detail-title: 24px;
+  --fs-detail-body:  16px;
+  --fs-detail-label: 13px;
+  --sprite-size:     96px;
 
   color-scheme: dark;
 }
