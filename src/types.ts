@@ -15,7 +15,7 @@ export interface Pokemon {
   types: [PokemonType] | [PokemonType, PokemonType]
   row: number
   col: number
-  generation: 1 | 2 | 3
+  generation: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 }
 
 // ── Injection Keys ────────────────────────────────────────────────────────
@@ -45,6 +45,13 @@ export const TOGGLE_COMPARE_KEY:  InjectionKey<(p: Pokemon) => void>            
 export const CLEAR_COMPARE_KEY:   InjectionKey<() => void>                       = Symbol('clearCompare')
 export const SHOW_COMPARE_KEY:    InjectionKey<Ref<boolean>>                     = Symbol('showCompare')
 export const SET_SHOW_COMPARE_KEY:InjectionKey<(v: boolean) => void>             = Symbol('setShowCompare')
+
+// ── Pagination ────────────────────────────────────────────────────────────
+export const PAGE_KEY:          InjectionKey<Ref<number>>                        = Symbol('page')
+export const TOTAL_PAGES_KEY:   InjectionKey<ComputedRef<number>>                = Symbol('totalPages')
+export const TOTAL_COUNT_KEY:   InjectionKey<ComputedRef<number>>                = Symbol('totalCount')
+export const PAGED_POKEMON_KEY: InjectionKey<ComputedRef<Pokemon[]>>             = Symbol('pagedPokemon')
+export const SET_PAGE_KEY:      InjectionKey<(n: number) => void>                = Symbol('setPage')
 
 // ── Modal ─────────────────────────────────────────────────────────────────
 export const MODAL_KEY:          InjectionKey<Ref<Pokemon | null>>               = Symbol('modal')

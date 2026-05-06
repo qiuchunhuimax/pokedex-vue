@@ -66,7 +66,7 @@ const pokemon   = inject(SELECTED_KEY)!
 const lang      = inject(LANG_KEY)!
 const ui        = computed(() => TRANSLATIONS[lang.value])
 
-const genRoman: Record<1|2|3, string> = { 1: 'I', 2: 'II', 3: 'III' }
+const genRoman: Record<number, string> = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX' }
 
 const name = computed(() => {
   if (!pokemon.value) return ''

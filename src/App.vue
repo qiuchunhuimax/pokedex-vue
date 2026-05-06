@@ -12,6 +12,7 @@
     <main class="app-main">
       <Controls />
       <PokemonGrid />
+      <Pagination />
     </main>
 
     <DetailModal />
@@ -24,9 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide } from 'vue'
+import { ref, computed, watch, provide } from 'vue'
 import Controls     from './components/Controls.vue'
 import PokemonGrid  from './components/PokemonGrid.vue'
+import Pagination   from './components/Pagination.vue'
 import DetailModal  from './components/DetailModal.vue'
 import ComparePanel from './components/ComparePanel.vue'
 
@@ -40,15 +42,18 @@ import { TRANSLATIONS } from './i18n/translations'
 
 import {
   LANG_KEY, THEME_KEY, FONTSIZE_KEY,
-  SEARCH_KEY, ACTIVE_TYPE_KEY, VISIBLE_IDS_KEY,
+  SEARCH_KEY, ACTIVE_TYPE_KEY,
   TOGGLE_THEME_KEY, CYCLE_LANG_KEY,
   SET_ACTIVE_TYPE_KEY, SET_SEARCH_KEY, SET_FONTSIZE_KEY,
   FAVORITES_KEY, TOGGLE_FAV_KEY, SHOW_FAVS_KEY, SET_SHOW_FAVS_KEY,
   COMPARE_LIST_KEY, TOGGLE_COMPARE_KEY, CLEAR_COMPARE_KEY,
   SHOW_COMPARE_KEY, SET_SHOW_COMPARE_KEY,
+  PAGE_KEY, TOTAL_PAGES_KEY, TOTAL_COUNT_KEY, PAGED_POKEMON_KEY, SET_PAGE_KEY,
   MODAL_KEY, OPEN_MODAL_KEY, CLOSE_MODAL_KEY,
 } from './types'
 import type { Pokemon, PokemonType } from './types'
+
+const ITEMS_PER_PAGE = 18
 
 // ── composables ───────────────────────────────────────────────────────────
 const { theme, toggleTheme }    = useTheme()
@@ -59,32 +64,42 @@ const { favorites, toggleFav }  = useFavorites()
 // ── local state ───────────────────────────────────────────────────────────
 const search      = ref('')
 const activeType  = ref<PokemonType | null>(null)
-const showFavs     = ref(false)
-const showCompare  = ref(false)
+const showFavs    = ref(false)
+const showCompare = ref(false)
+const page        = ref(1)
 const modalPokemon = ref<Pokemon | null>(null)
 const compareList  = ref<Pokemon[]>([])
 
 // ── derived ───────────────────────────────────────────────────────────────
-const visibleIds = computed(() => {
+const filteredPokemon = computed(() => {
   const q = search.value.trim().toLowerCase()
-  return new Set(
-    POKEMON
-      .filter(p => {
-        if (showFavs.value && !favorites.value.has(p.id)) return false
-        if (activeType.value && !p.types.includes(activeType.value)) return false
-        if (!q) return true
-        return (
-          p.nameEn.toLowerCase().includes(q) ||
-          p.nameZh.includes(q) ||
-          p.nameJa.includes(q) ||
-          String(p.id).includes(q)
-        )
-      })
-      .map(p => p.id)
-  )
+  return POKEMON.filter(p => {
+    if (showFavs.value && !favorites.value.has(p.id)) return false
+    if (activeType.value && !p.types.includes(activeType.value)) return false
+    if (!q) return true
+    return (
+      p.nameEn.toLowerCase().includes(q) ||
+      p.nameZh.includes(q) ||
+      p.nameJa.includes(q) ||
+      String(p.id).includes(q)
+    )
+  })
+})
+
+const totalCount  = computed(() => filteredPokemon.value.length)
+const totalPages  = computed(() => Math.max(1, Math.ceil(totalCount.value / ITEMS_PER_PAGE)))
+
+const pagedPokemon = computed(() => {
+  const start = (page.value - 1) * ITEMS_PER_PAGE
+  return filteredPokemon.value.slice(start, start + ITEMS_PER_PAGE)
 })
 
 const ui = computed(() => TRANSLATIONS[lang.value])
+
+// reset to page 1 whenever filters change
+watch([search, activeType, showFavs], () => { page.value = 1 })
+// clamp page if totalPages shrinks
+watch(totalPages, (max) => { if (page.value > max) page.value = max })
 
 // ── compare helpers ───────────────────────────────────────────────────────
 function toggleCompare(p: Pokemon) {
@@ -95,30 +110,23 @@ function toggleCompare(p: Pokemon) {
     compareList.value = [...compareList.value, p]
   }
 }
-
 function clearCompare() {
   compareList.value = []
   showCompare.value = false
 }
 
 // ── modal helpers ─────────────────────────────────────────────────────────
-function openModal(p: Pokemon) {
-  modalPokemon.value = p
-}
-
-function closeModal() {
-  modalPokemon.value = null
-}
+function openModal(p: Pokemon)  { modalPokemon.value = p }
+function closeModal()           { modalPokemon.value = null }
 
 // ── provide ───────────────────────────────────────────────────────────────
-provide(LANG_KEY,          lang)
-provide(THEME_KEY,         theme)
-provide(FONTSIZE_KEY,      fontSize)
-provide(SEARCH_KEY,        search)
-provide(ACTIVE_TYPE_KEY,   activeType)
-provide(VISIBLE_IDS_KEY,   visibleIds)
-provide(TOGGLE_THEME_KEY,  toggleTheme)
-provide(CYCLE_LANG_KEY,    cycleLanguage)
+provide(LANG_KEY,         lang)
+provide(THEME_KEY,        theme)
+provide(FONTSIZE_KEY,     fontSize)
+provide(SEARCH_KEY,       search)
+provide(ACTIVE_TYPE_KEY,  activeType)
+provide(TOGGLE_THEME_KEY, toggleTheme)
+provide(CYCLE_LANG_KEY,   cycleLanguage)
 provide(SET_ACTIVE_TYPE_KEY, (t: PokemonType | null) => { activeType.value = t })
 provide(SET_SEARCH_KEY,      (s: string)             => { search.value = s })
 provide(SET_FONTSIZE_KEY,    setFontSize)
@@ -128,11 +136,17 @@ provide(TOGGLE_FAV_KEY,    toggleFav)
 provide(SHOW_FAVS_KEY,     showFavs)
 provide(SET_SHOW_FAVS_KEY, (v: boolean) => { showFavs.value = v })
 
-provide(COMPARE_LIST_KEY,    compareList)
-provide(TOGGLE_COMPARE_KEY,  toggleCompare)
-provide(CLEAR_COMPARE_KEY,   clearCompare)
-provide(SHOW_COMPARE_KEY,    showCompare)
+provide(COMPARE_LIST_KEY,     compareList)
+provide(TOGGLE_COMPARE_KEY,   toggleCompare)
+provide(CLEAR_COMPARE_KEY,    clearCompare)
+provide(SHOW_COMPARE_KEY,     showCompare)
 provide(SET_SHOW_COMPARE_KEY, (v: boolean) => { showCompare.value = v })
+
+provide(PAGE_KEY,          page)
+provide(TOTAL_PAGES_KEY,   totalPages)
+provide(TOTAL_COUNT_KEY,   totalCount)
+provide(PAGED_POKEMON_KEY, pagedPokemon)
+provide(SET_PAGE_KEY,      (n: number) => { page.value = Math.min(totalPages.value, Math.max(1, n)) })
 
 provide(MODAL_KEY,       modalPokemon)
 provide(OPEN_MODAL_KEY,  openModal)
