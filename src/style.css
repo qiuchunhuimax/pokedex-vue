@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:            #0d1117;
+  --bg2:           #161b22;
+  --bg3:           #21262d;
+  --txt:           #e6edf3;
+  --txt2:          #8b949e;
+  --txt3:          #484f58;
+  --accent:        #58a6ff;
+  --accent-soft:   rgba(88,166,255,0.14);
+  --border:        rgba(240,246,252,0.10);
+  --border-strong: rgba(240,246,252,0.20);
+  --shadow:        0 8px 32px rgba(0,0,0,0.32);
+  --cell-text:     #ffffff;
+  --cell-muted:    rgba(255,255,255,0.82);
+  --cell-subtle:   rgba(255,255,255,0.62);
+
+  --font-body: 'Inter', 'Noto Sans JP', system-ui, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --fs-body:         16px;
+  --fs-title:        28px;
+  --fs-subtitle:     13px;
+  --fs-control:      12px;
+  --fs-input:        14px;
+  --fs-cell-num:      9px;
+  --fs-cell-name:     8px;
+  --fs-type-badge:    7px;
+  --fs-detail-title: 22px;
+  --fs-detail-body:  14px;
+  --fs-detail-label: 11px;
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg:            #f6f8fa;
+  --bg2:           #ffffff;
+  --bg3:           #f0f3f6;
+  --txt:           #1f2328;
+  --txt2:          #636c76;
+  --txt3:          #9198a1;
+  --accent:        #0969da;
+  --accent-soft:   rgba(9,105,218,0.12);
+  --border:        rgba(31,35,40,0.15);
+  --border-strong: rgba(31,35,40,0.24);
+  --shadow:        0 8px 24px rgba(31,35,40,0.08);
+  color-scheme: light;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input  { font-family: inherit; }
+img    { display: block; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }

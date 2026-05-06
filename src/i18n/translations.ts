@@ -1,0 +1,73 @@
+import type { Language } from '../types'
+
+export interface UiStrings {
+  title: string
+  subtitle: string
+  searchPlaceholder: string
+  all: string
+  types: string
+  clickPrompt: string
+  number: string
+  primaryType: string
+  secondaryType: string
+  generation: string
+  names: string
+  themeLight: string
+  themeDark: string
+  fontSize: string
+  gen: string
+}
+
+export const TRANSLATIONS: Record<Language, UiStrings> = {
+  en: {
+    title:             'Pokémon Pokédex',
+    subtitle:          '386 Pokémon · Generations I–III · Click any cell for details',
+    searchPlaceholder: 'Search by name or number…',
+    all:               'All',
+    types:             'Types',
+    clickPrompt:       'Click any Pokémon to view details',
+    number:            'No.',
+    primaryType:       'Type 1',
+    secondaryType:     'Type 2',
+    generation:        'Generation',
+    names:             'Names',
+    themeLight:        'Light',
+    themeDark:         'Dark',
+    fontSize:          'Font Size',
+    gen:               'Gen',
+  },
+  zh: {
+    title:             '宝可梦图鉴',
+    subtitle:          '386只宝可梦 · 第一至三世代 · 点击任意格子查看详情',
+    searchPlaceholder: '按名称或编号搜索…',
+    all:               '全部',
+    types:             '属性',
+    clickPrompt:       '点击任意宝可梦查看详情',
+    number:            '编号',
+    primaryType:       '主属性',
+    secondaryType:     '副属性',
+    generation:        '世代',
+    names:             '名称',
+    themeLight:        '亮色',
+    themeDark:         '暗色',
+    fontSize:          '字体大小',
+    gen:               '世代',
+  },
+  ja: {
+    title:             'ポケモン図鑑',
+    subtitle:          '386匹のポケモン · 第一〜三世代 · セルをクリックして詳細を表示',
+    searchPlaceholder: '名前または番号で検索…',
+    all:               'すべて',
+    types:             'タイプ',
+    clickPrompt:       'ポケモンをクリックして詳細を表示',
+    number:            'No.',
+    primaryType:       'タイプ1',
+    secondaryType:     'タイプ2',
+    generation:        '世代',
+    names:             '名前',
+    themeLight:        'ライト',
+    themeDark:         'ダーク',
+    fontSize:          '文字サイズ',
+    gen:               '世代',
+  },
+}
