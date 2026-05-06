@@ -12,10 +12,10 @@
     <main class="app-main">
       <Controls />
       <PokemonGrid />
-      <ComparePanel />
     </main>
 
     <DetailModal />
+    <ComparePanel />
 
     <footer class="app-footer">
       Pokémon data © Nintendo / Game Freak &nbsp;·&nbsp; Sprites via PokéAPI
