@@ -25,7 +25,7 @@ export interface UiStrings {
 export const TRANSLATIONS: Record<Language, UiStrings> = {
   en: {
     title:             'Pokémon Pokédex',
-    subtitle:          '386 Pokémon · Generations I–III · Click any cell for details',
+    subtitle:          '1025 Pokémon · Generations I–IX · Click any card for details',
     searchPlaceholder: 'Search by name or number…',
     all:               'All',
     types:             'Types',
@@ -46,7 +46,7 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
   },
   zh: {
     title:             '宝可梦图鉴',
-    subtitle:          '386只宝可梦 · 第一至三世代 · 点击任意格子查看详情',
+    subtitle:          '1025只宝可梦 · 第一至九世代 · 点击任意卡片查看详情',
     searchPlaceholder: '按名称或编号搜索…',
     all:               '全部',
     types:             '属性',
@@ -67,7 +67,7 @@ export const TRANSLATIONS: Record<Language, UiStrings> = {
   },
   ja: {
     title:             'ポケモン図鑑',
-    subtitle:          '386匹のポケモン · 第一〜三世代 · セルをクリックして詳細を表示',
+    subtitle:          '1025匹のポケモン · 第一〜九世代 · カードをクリックして詳細を表示',
     searchPlaceholder: '名前または番号で検索…',
     all:               'すべて',
     types:             'タイプ',

@@ -67,7 +67,7 @@
           <!-- 导航 -->
           <div class="modal-nav">
             <button class="nav-btn" @click="navTo(pokemon.id - 1)" :disabled="pokemon.id <= 1">‹ {{ prevLabel }}</button>
-            <button class="nav-btn" @click="navTo(pokemon.id + 1)" :disabled="pokemon.id >= 386">{{ nextLabel }} ›</button>
+            <button class="nav-btn" @click="navTo(pokemon.id + 1)" :disabled="pokemon.id >= 1025">{{ nextLabel }} ›</button>
           </div>
         </div>
       </div>
