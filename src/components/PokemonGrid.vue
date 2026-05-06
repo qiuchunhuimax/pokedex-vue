@@ -88,7 +88,6 @@ const genRows: Record<1|2|3, number> = { 1: 9, 2: 6, 3: 8 }
 .gen-label span {
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  transform: rotate(180deg);
   font-size: var(--fs-control);
   font-weight: 600;
   color: var(--txt2);
