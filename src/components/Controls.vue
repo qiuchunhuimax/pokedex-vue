@@ -179,4 +179,20 @@ const activeTypeVal = computed({
   accent-color: var(--accent);
   cursor: pointer;
 }
+
+/* ── Mobile ────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .controls { padding: 8px 10px 6px; border-radius: 10px; }
+
+  /* 搜索框独占第一行 */
+  .controls-row { gap: 6px; }
+  .controls-row :deep(.search-wrap) { flex: 0 0 100%; order: -1; }
+
+  /* 其他按钮缩小 */
+  .ctrl-btn { padding: 5px 9px; font-size: 13px; }
+
+  /* 字号滑块独占一行 */
+  .font-ctrl { flex: 0 0 100%; justify-content: center; }
+  .font-slider { width: 120px; }
+}
 </style>

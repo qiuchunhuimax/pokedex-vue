@@ -202,4 +202,11 @@ provide(CLOSE_MODAL_KEY, closeModal)
   border-top: 1px solid var(--border);
   margin-top: 24px;
 }
+
+@media (max-width: 600px) {
+  .header-inner { padding: 10px 14px; }
+  .app-subtitle  { display: none; }
+  .app-main      { padding: 10px 12px; }
+  .app-footer    { padding: 10px 14px; font-size: 12px; }
+}
 </style>

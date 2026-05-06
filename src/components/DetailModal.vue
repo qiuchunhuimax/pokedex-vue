@@ -349,4 +349,29 @@ function navTo(id: number) {
 .modal-enter-active, .modal-leave-active { transition: opacity 0.2s, transform 0.2s; }
 .modal-enter-from, .modal-leave-to { opacity: 0; }
 .modal-enter-from .modal-card, .modal-leave-to .modal-card { transform: scale(0.96) translateY(10px); }
+
+/* ── Mobile：底部抽屉 ──────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal-card {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    max-width: 100%;
+  }
+  .modal-hero { padding: 20px 16px 14px; gap: 12px; }
+  .modal-img  { width: 90px; height: 90px; }
+  .modal-name { font-size: 20px; }
+  .modal-actions { padding: 10px 16px; gap: 6px; }
+  .modal-section { padding: 12px 16px; }
+  .modal-meta    { padding: 8px 16px; }
+  .modal-nav     { padding: 10px 16px; }
+  .nav-btn       { padding: 8px 14px; font-size: 13px; }
+
+  /* 动画改为从底部滑入 */
+  .modal-enter-from .modal-card,
+  .modal-leave-to   .modal-card { transform: translateY(100%); }
+}
 </style>

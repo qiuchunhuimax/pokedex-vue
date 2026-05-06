@@ -163,4 +163,17 @@ const pageNums = computed(() => {
   background: none;
   color: var(--txt3);
 }
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .pagination { gap: 10px; padding: 16px 0 6px; }
+
+  /* 隐藏首页/末页跳转按钮（有 title 属性的）和密集页码 */
+  .pg-btn[title],
+  .pg-nums { display: none; }
+
+  .pg-controls { gap: 8px; }
+  .pg-btn { padding: 9px 20px; font-size: 14px; }
+  .pg-total { font-size: 13px; }
+}
 </style>

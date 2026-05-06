@@ -117,6 +117,14 @@ function genPokemon(gen: number) {
   .pokemon-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 550px) {
-  .pokemon-grid { grid-template-columns: repeat(3, 1fr); }
+  .pokemon-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+}
+@media (max-width: 380px) {
+  .pokemon-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* 世代标题在手机上缩小 */
+@media (max-width: 600px) {
+  .gen-header { gap: 8px; margin: 20px 0 10px; }
 }
 </style>

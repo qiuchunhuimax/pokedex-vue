@@ -355,4 +355,29 @@ const slotHint = computed(() => {
 .modal-enter-active, .modal-leave-active { transition: opacity 0.2s, transform 0.2s; }
 .modal-enter-from, .modal-leave-to { opacity: 0; }
 .modal-enter-from .cmp-modal, .modal-leave-to .cmp-modal { transform: scale(0.95) translateY(12px); }
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .cmp-overlay { padding: 0; align-items: flex-end; }
+  .cmp-modal {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    /* 底部弹出式抽屉 */
+  }
+  .cmp-header { padding: 14px 16px 12px; }
+
+  /* 两列改单列 */
+  .cmp-cards {
+    grid-template-columns: 1fr;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .cmp-slot-empty { min-height: 100px; }
+  .cmp-img { width: 72px; height: 72px; }
+
+  /* 数值对比区 */
+  .cmp-bars-section { padding: 6px 16px 16px; }
+  .bars-track { gap: 6px; }
+  .bar-vals { min-width: 44px; font-size: 12px; }
+}
 </style>

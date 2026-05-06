@@ -63,4 +63,9 @@ function chipStyle(t: PokemonType) {
   color: #fff;
   font-weight: 600;
 }
+
+@media (max-width: 600px) {
+  .type-filter { gap: 5px; padding: 8px 0 4px; }
+  .type-chip   { padding: 5px 10px; font-size: 13px; }
+}
 </style>

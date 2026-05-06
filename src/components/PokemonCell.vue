@@ -204,4 +204,20 @@ function onImgError(e: Event) {
 }
 .cmp-btn:hover, .cmp-btn.active { color: #fff; transform: scale(1.2); }
 .cmp-btn.active { color: #fbbf24; }
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+@media (max-width: 550px) {
+  .cell { padding: 10px 6px 8px; border-radius: 10px; }
+  .cell-img-wrap,
+  .cell-img { width: 64px; height: 64px; }
+  .cell-name { margin-top: 5px; }
+  .cell-types { margin-top: 5px; gap: 3px; }
+  .type-badge { padding: 2px 6px; font-size: 10px; }
+}
+@media (max-width: 380px) {
+  .cell { padding: 8px 4px 6px; }
+  .cell-img-wrap,
+  .cell-img { width: 52px; height: 52px; }
+  /* 两列时卡片较宽，类型标签换行也没关系 */
+}
 </style>
